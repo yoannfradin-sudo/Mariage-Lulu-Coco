@@ -128,6 +128,30 @@
     padding:10px 18px;border-radius:3px;color:var(--ink);cursor:pointer;
   }
 
+  /* ---------- Lieux ---------- */
+  .places{border-top:1px solid var(--line);padding:30px 4px 34px;margin-bottom:34px;border-bottom:1px solid var(--line);text-align:center}
+  .places-title{margin-bottom:22px}
+  .place{padding:14px 0}
+  .place + .place{border-top:1px dashed var(--line)}
+  .place-kind{display:block;font-family:var(--serif);font-style:italic;color:var(--sage);font-size:19px;line-height:1.2}
+  .place-name{display:block;font-weight:500;font-size:16px;margin:4px 0 6px}
+  .place-addr{display:inline-block;color:var(--muted);font-size:14px;line-height:1.45;text-decoration:none;padding:2px 4px;border-radius:3px;transition:color .15s}
+  .place-addr span{text-decoration:underline;text-decoration-color:var(--sage-soft);text-decoration-thickness:2px;text-underline-offset:3px}
+  .place-addr svg{display:inline-block;width:16px;height:16px;vertical-align:-3px;margin-right:4px;color:var(--sage)}
+  .place-addr:hover,.place-addr:focus-visible{color:var(--ink);outline:none}
+  .place-addr:focus-visible{box-shadow:0 0 0 3px var(--sage-soft)}
+
+  /* ---------- Agenda ---------- */
+  .cal{margin:26px auto 0;max-width:380px}
+  .cal[hidden]{display:none}
+  .cal-title{font-family:var(--serif);font-size:13px!important;text-transform:uppercase;letter-spacing:.2em;color:var(--ink)!important;margin-bottom:12px!important}
+  .cal-btns{display:flex;gap:8px}
+  .cal-btn{flex:1;display:flex;align-items:center;justify-content:center;min-height:50px;padding:0 10px;border-radius:3px;
+    background:var(--sage);color:#fff;text-decoration:none;font-weight:600;font-size:15px;transition:background .15s,transform .12s}
+  .cal-btn:hover{background:var(--sage-dark)}
+  .cal-btn:active{transform:scale(.98)}
+  @media (max-width:360px){.cal-btns{flex-direction:column}}
+
   footer{text-align:center;margin-top:52px;font-family:var(--serif);color:var(--ink);font-size:15px;letter-spacing:.3em;text-transform:uppercase;line-height:1.9}
   footer small{display:block;font-size:13px;color:var(--muted)}
 
@@ -174,7 +198,8 @@
   .thanks > *{animation:rise .9s var(--ease) both}
   .thanks h2{animation-delay:.25s}
   .thanks p{animation-delay:.4s}
-  .thanks .again{animation-delay:.6s}
+  .thanks .cal{animation-delay:.55s}
+  .thanks .again{animation-delay:.7s}
 
   /* Petits cœurs qui s'envolent / tombent */
   .fly,.rain{position:fixed;pointer-events:none;color:var(--sage);z-index:20}
@@ -211,6 +236,25 @@
     <svg class="doodle" viewBox="0 0 40 36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M20 33 C12 26, 3 20, 4 11 C5 4, 13 2, 19 9 C24 2, 34 3, 36 10 C38 19, 28 26, 20 33 Z"/><path pathLength="1" d="M21 31 C14 25, 7 19, 7 12 C8 7, 14 6, 19 11" opacity=".55"/></svg>
     <p class="intro">Nous sommes heureux de partager cette belle journée avec vous.<br>Afin de nous aider dans l'organisation du mariage, merci de remplir ce petit formulaire.</p>
     <div class="deadline" id="deadline" hidden></div>
+  </div>
+
+  <div class="places appear">
+    <h2 class="places-title">Les lieux</h2>
+    <div class="place">
+      <span class="place-kind">Mairie</span>
+      <span class="place-name">Mairie d&#39;Avallon</span>
+      <a class="place-addr" href="https://www.google.com/maps/search/?api=1&amp;query=37+Grande+Rue+Aristide+Briand%2C+89200+Avallon" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.1-6.5-11a6.5 6.5 0 0 1 13 0c0 4.9-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>37 Grande Rue Aristide Briand<br>89200 Avallon</span></a>
+    </div>
+    <div class="place">
+      <span class="place-kind">Église</span>
+      <span class="place-name">Collégiale Saint-Lazare</span>
+      <a class="place-addr" href="https://www.google.com/maps/search/?api=1&amp;query=%C3%89glise+Coll%C3%A9giale+Saint-Lazare%2C+11+Rue+Bocquillot%2C+89200+Avallon" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.1-6.5-11a6.5 6.5 0 0 1 13 0c0 4.9-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>11 Rue Bocquillot<br>89200 Avallon</span></a>
+    </div>
+    <div class="place">
+      <span class="place-kind">Réception</span>
+      <span class="place-name">Les Gaties</span>
+      <a class="place-addr" href="https://www.google.com/maps/search/?api=1&amp;query=Les+Gaties%2C+89630+Saint-Germain-des-Champs" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.1-6.5-11a6.5 6.5 0 0 1 13 0c0 4.9-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>89630 Saint-Germain-des-Champs</span></a>
+    </div>
   </div>
 
   <form id="rsvp" novalidate>
@@ -310,6 +354,13 @@
     <svg class="doodle" viewBox="0 0 40 36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M20 33 C12 26, 3 20, 4 11 C5 4, 13 2, 19 9 C24 2, 34 3, 36 10 C38 19, 28 26, 20 33 Z"/><path pathLength="1" d="M21 31 C14 25, 7 19, 7 12 C8 7, 14 6, 19 11" opacity=".55"/></svg>
     <h2 id="thanksTitle">Merci !</h2>
     <p id="thanksText"></p>
+    <div class="cal" id="cal" hidden>
+      <p class="cal-title">Ajouter la date à votre agenda</p>
+      <div class="cal-btns">
+        <a class="cal-btn" id="calGoogle" href="#" target="_blank" rel="noopener">Google Agenda</a>
+        <a class="cal-btn" href="mariage.ics">iPhone / Outlook</a>
+      </div>
+    </div>
     <button class="again" id="againBtn" type="button">Envoyer une autre réponse</button>
   </div>
 
@@ -325,6 +376,17 @@ const CONFIG = {
   date: "26.06.2027",
   lieu: "",          // ex. "Domaine de …, Côte-d'Or"
   dateLimite: "",    // ex. "1er mars 2027"
+  // Événement « Google Agenda » (garder en phase avec le fichier mariage.ics)
+  agenda: {
+    titre: "Mariage de Lucile & Corentin",
+    dates: "20270626/20270627",   // journée entière ; avec horaires : "20270626T140000/20270627T020000"
+    lieu: "Église Collégiale Saint-Lazare, 11 Rue Bocquillot, 89200 Avallon",
+    details: "Programme de la journée :\n" +
+      "• Mairie d'Avallon — 37 Grande Rue Aristide Briand, 89200 Avallon\n" +
+      "• Église Collégiale Saint-Lazare — 11 Rue Bocquillot, 89200 Avallon\n" +
+      "• Réception — Les Gaties, 89630 Saint-Germain-des-Champs\n\n" +
+      "Plus d'infos : https://lucile-corentin.yoannfradin.fr"
+  },
   // Identifiants des champs Google Form (entry.XXXXXXXX) — issus du lien pré-rempli
   entries: {
     prenom:          "1923296261",
@@ -417,6 +479,13 @@ function rain(n = 26){
   }
 }
 
+// Lien Google Agenda
+(function(){
+  const a = CONFIG.agenda;
+  const q = new URLSearchParams({ action:"TEMPLATE", text:a.titre, dates:a.dates, location:a.lieu, details:a.details, ctz:"Europe/Paris" });
+  $("#calGoogle").href = "https://calendar.google.com/calendar/render?" + q.toString();
+})();
+
 // Affichage conditionnel
 form.addEventListener("change", e => {
   if (e.target.name === "presence" && e.target.value.startsWith("Oui")) burst(e.target.nextElementSibling);
@@ -464,6 +533,7 @@ function thanks(){
   $("#thanksText").textContent = yes
     ? "Merci d'avoir pris le temps de répondre. Nous avons hâte de partager cette journée avec vous 🥂💍"
     : "Merci d'avoir pris le temps de répondre. Vous nous manquerez !";
+  $("#cal").hidden = !yes;
   form.hidden = true;
   $("#thanks").hidden = false;
   $("#thanks").scrollIntoView({behavior: reduceMotion ? "auto" : "smooth", block:"center"});

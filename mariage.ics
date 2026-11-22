@@ -1,0 +1,22 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Lucile & Corentin//Mariage//FR
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:mariage-lucile-corentin-20270626@lucile-corentin.yoannfradin.fr
+DTSTAMP:20261122T163341Z
+DTSTART;VALUE=DATE:20270626
+DTEND;VALUE=DATE:20270627
+SUMMARY:Mariage de Lucile & Corentin
+LOCATION:Église Collégiale Saint-Lazare\, 11 Rue Bocquillot\, 89200 Avall
+ on
+DESCRIPTION:Programme de la journée :\n• Mairie d'Avallon — 37 Grande 
+ Rue Aristide Briand\, 89200 Avallon\n• Église Collégiale Saint-Lazare 
+ — 11 Rue Bocquillot\, 89200 Avallon\n• Réception — Les Gaties\, 896
+ 30 Saint-Germain-des-Champs\n\nPlus d'infos : https://lucile-corentin.yoan
+ nfradin.fr
+URL:https://lucile-corentin.yoannfradin.fr
+TRANSP:TRANSPARENT
+END:VEVENT
+END:VCALENDAR
