@@ -59,11 +59,17 @@
 
   /* ---------- En-tête ---------- */
   .hero{margin:0 -16px 8px;}
-  .hero img{display:block;width:100%;height:auto;
+  .hero-art{position:relative}
+  .hero-bg{display:block;width:100%;height:auto;
     -webkit-mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent),linear-gradient(transparent,#000 2%,#000 95%,transparent);
     -webkit-mask-composite:source-in;
     mask-image:linear-gradient(90deg,transparent,#000 3%,#000 97%,transparent),linear-gradient(transparent,#000 2%,#000 95%,transparent);
     mask-composite:intersect}
+  /* Dessins du save the date, superposés à leur place pour pouvoir battre */
+  .deco{position:absolute;height:auto;pointer-events:none;user-select:none;transform-origin:50% 55%}
+  .deco-h1{left:12.4545%;top:26.5445%;width:6.9091%}
+  .deco-h2{left:8%;top:33.8086%;width:8.4545%}
+  .deco-smile{left:82.7273%;top:20.5024%;width:12.1818%;transform-origin:50% 50%}
   .welcome{text-align:center;padding:8px 12px 40px}
   .doodle{width:30px;height:auto;color:var(--sage);display:block;margin:0 auto 14px}
   .intro{font-family:var(--serif);font-size:21px;line-height:1.4;color:var(--ink);max-width:420px;margin:0 auto}
@@ -221,7 +227,13 @@
   :root{--ease:cubic-bezier(.2,.7,.2,1)}
 
   /* Arrivée sur la page */
-  .hero img{animation:heroIn 1.6s var(--ease) both}
+  .hero-art{animation:heroIn 1.6s var(--ease) both}
+  /* Battement léger des cœurs et du smiley */
+  .deco-h1{animation:pulse 2.6s ease-in-out 1.6s infinite}
+  .deco-h2{animation:pulse 2.6s ease-in-out 1.95s infinite}
+  .deco-smile{animation:smile 3.4s ease-in-out 2.4s infinite}
+  @keyframes pulse{0%,48%,100%{transform:scale(1)}12%{transform:scale(1.08)}24%{transform:scale(.99)}36%{transform:scale(1.05)}}
+  @keyframes smile{0%,100%{transform:scale(1) rotate(0)}30%{transform:scale(1.06) rotate(-4deg)}60%{transform:scale(1.02) rotate(3deg)}}
   @keyframes heroIn{from{opacity:0;transform:scale(1.035)}to{opacity:1;transform:none}}
   .welcome .intro{animation:rise 1s var(--ease) .45s both}
   .welcome .countdown{animation:rise 1s var(--ease) .7s both}
@@ -293,7 +305,8 @@
     body{padding:0 48px}
     .wrap{max-width:1220px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,560px);column-gap:80px;align-items:start}
     .hero{position:sticky;top:0;height:100vh;margin:0;display:flex;align-items:center;justify-content:center}
-    .hero img{width:auto;max-width:100%;max-height:calc(100vh - 64px);
+    .hero-art{width:min(100%, calc((100vh - 64px) * 1100 / 1473))}
+    .hero-bg{
       -webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(transparent,#000 6%,#000 92%,transparent);
       mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent),linear-gradient(transparent,#000 6%,#000 92%,transparent)}
     .content{padding:64px 0 56px}
@@ -305,7 +318,12 @@
 <div class="wrap">
 
   <figure class="hero">
-    <img src="save-the-date.jpg" alt="Save the date — Lucile &amp; Corentin, 26.06.2027" width="1100" height="1473">
+    <div class="hero-art">
+      <img class="hero-bg" src="decor/save-the-date-fond.jpg" alt="Save the date — Lucile &amp; Corentin, 26.06.2027" width="1100" height="1473">
+      <img class="deco deco-h1" src="decor/coeur-haut.png" alt="" width="76" height="86">
+      <img class="deco deco-h2" src="decor/coeur-bas.png" alt="" width="93" height="106">
+      <img class="deco deco-smile" src="decor/smiley.png" alt="" width="134" height="128">
+    </div>
   </figure>
   <main class="content">
   <div class="welcome">
