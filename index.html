@@ -133,6 +133,7 @@
   .places-title{margin-bottom:22px}
   .place{padding:14px 0}
   .place + .place{border-top:1px dashed var(--line)}
+  .place-time{display:block;font-size:12px;letter-spacing:.2em;color:var(--ink);margin-bottom:2px}
   .place-kind{display:block;font-family:var(--serif);font-style:italic;color:var(--sage);font-size:19px;line-height:1.2}
   .place-name{display:block;font-weight:500;font-size:16px;margin:4px 0 6px}
   .place-addr{display:inline-block;color:var(--muted);font-size:14px;line-height:1.45;text-decoration:none;padding:2px 4px;border-radius:3px;transition:color .15s}
@@ -146,9 +147,14 @@
   .cal[hidden]{display:none}
   .cal-title{font-family:var(--serif);font-size:13px!important;text-transform:uppercase;letter-spacing:.2em;color:var(--ink)!important;margin-bottom:12px!important}
   .cal-btns{display:flex;gap:8px}
-  .cal-btn{flex:1;display:flex;align-items:center;justify-content:center;min-height:50px;padding:0 10px;border-radius:3px;
+  .cal-btn{flex:1;display:flex;border:0;font-family:inherit;cursor:pointer;align-items:center;justify-content:center;min-height:50px;padding:0 10px;border-radius:3px;
     background:var(--sage);color:#fff;text-decoration:none;font-weight:600;font-size:15px;transition:background .15s,transform .12s}
   .cal-btn:hover{background:var(--sage-dark)}
+  .cal-list{display:flex;flex-direction:column;gap:6px;margin-top:10px}
+  .cal-list[hidden]{display:none}
+  .cal-sub{display:block;padding:12px;border:1px solid var(--line);border-radius:3px;background:var(--card);
+    color:var(--ink);text-decoration:none;font-size:15px;transition:border-color .15s}
+  .cal-sub:hover{border-color:var(--sage)}
   .cal-btn:active{transform:scale(.98)}
   @media (max-width:360px){.cal-btns{flex-direction:column}}
 
@@ -239,18 +245,21 @@
   </div>
 
   <div class="places appear">
-    <h2 class="places-title">Les lieux</h2>
+    <h2 class="places-title">Le programme</h2>
     <div class="place">
+      <span class="place-time">14h30</span>
       <span class="place-kind">Mairie</span>
       <span class="place-name">Mairie d&#39;Avallon</span>
       <a class="place-addr" href="https://www.google.com/maps/search/?api=1&amp;query=37+Grande+Rue+Aristide+Briand%2C+89200+Avallon" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.1-6.5-11a6.5 6.5 0 0 1 13 0c0 4.9-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>37 Grande Rue Aristide Briand<br>89200 Avallon</span></a>
     </div>
     <div class="place">
+      <span class="place-time">16h30</span>
       <span class="place-kind">Église</span>
       <span class="place-name">Collégiale Saint-Lazare</span>
       <a class="place-addr" href="https://www.google.com/maps/search/?api=1&amp;query=%C3%89glise+Coll%C3%A9giale+Saint-Lazare%2C+11+Rue+Bocquillot%2C+89200+Avallon" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.1-6.5-11a6.5 6.5 0 0 1 13 0c0 4.9-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>11 Rue Bocquillot<br>89200 Avallon</span></a>
     </div>
     <div class="place">
+      <span class="place-time">18h00</span>
       <span class="place-kind">Réception</span>
       <span class="place-name">Les Gaties</span>
       <a class="place-addr" href="https://www.google.com/maps/search/?api=1&amp;query=Les+Gaties%2C+89630+Saint-Germain-des-Champs" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.1-6.5-11a6.5 6.5 0 0 1 13 0c0 4.9-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>89630 Saint-Germain-des-Champs</span></a>
@@ -357,9 +366,10 @@
     <div class="cal" id="cal" hidden>
       <p class="cal-title">Ajouter la date à votre agenda</p>
       <div class="cal-btns">
-        <a class="cal-btn" id="calGoogle" href="#" target="_blank" rel="noopener">Google Agenda</a>
+        <button class="cal-btn" id="calGoogle" type="button" aria-expanded="false" aria-controls="calGoogleList">Google Agenda</button>
         <a class="cal-btn" href="mariage.ics">iPhone / Outlook</a>
       </div>
+      <div class="cal-list" id="calGoogleList" hidden></div>
     </div>
     <button class="again" id="againBtn" type="button">Envoyer une autre réponse</button>
   </div>
@@ -376,17 +386,21 @@ const CONFIG = {
   date: "26.06.2027",
   lieu: "",          // ex. "Domaine de …, Côte-d'Or"
   dateLimite: "",    // ex. "1er mars 2027"
-  // Événement « Google Agenda » (garder en phase avec le fichier mariage.ics)
-  agenda: {
-    titre: "Mariage de Lucile & Corentin",
-    dates: "20270626/20270627",   // journée entière ; avec horaires : "20270626T140000/20270627T020000"
-    lieu: "Église Collégiale Saint-Lazare, 11 Rue Bocquillot, 89200 Avallon",
-    details: "Programme de la journée :\n" +
-      "• Mairie d'Avallon — 37 Grande Rue Aristide Briand, 89200 Avallon\n" +
-      "• Église Collégiale Saint-Lazare — 11 Rue Bocquillot, 89200 Avallon\n" +
-      "• Réception — Les Gaties, 89630 Saint-Germain-des-Champs\n\n" +
-      "Plus d'infos : https://lucile-corentin.yoannfradin.fr"
-  },
+  // Agenda : un événement par moment de la journée (heures de Paris).
+  // Garder en phase avec le fichier mariage.ics.
+  agenda: [
+    { titre: "Mariage Lucile & Corentin · Mairie", debut: "2027-06-26T14:30", fin: "2027-06-26T15:30",
+      lieu: "Mairie d'Avallon, 37 Grande Rue Aristide Briand, 89200 Avallon", court: "Mairie · 14h30" },
+    { titre: "Mariage Lucile & Corentin · Église", debut: "2027-06-26T16:30", fin: "2027-06-26T17:45",
+      lieu: "Église Collégiale Saint-Lazare, 11 Rue Bocquillot, 89200 Avallon", court: "Église · 16h30" },
+    { titre: "Mariage Lucile & Corentin · Réception", debut: "2027-06-26T18:00", fin: "2027-06-27T02:00",
+      lieu: "Les Gaties, 89630 Saint-Germain-des-Champs", court: "Réception · 18h" }
+  ],
+  agendaDetails: "Programme du 26 juin 2027 :\n" +
+    "• 14h30 — Mairie d'Avallon, 37 Grande Rue Aristide Briand, 89200 Avallon\n" +
+    "• 16h30 — Église Collégiale Saint-Lazare, 11 Rue Bocquillot, 89200 Avallon\n" +
+    "• 18h00 — Réception, Les Gaties, 89630 Saint-Germain-des-Champs\n\n" +
+    "Plus d'infos : https://lucile-corentin.yoannfradin.fr",
   // Identifiants des champs Google Form (entry.XXXXXXXX) — issus du lien pré-rempli
   entries: {
     prenom:          "1923296261",
@@ -479,11 +493,24 @@ function rain(n = 26){
   }
 }
 
-// Lien Google Agenda
+// Liens Google Agenda (un par événement)
 (function(){
-  const a = CONFIG.agenda;
-  const q = new URLSearchParams({ action:"TEMPLATE", text:a.titre, dates:a.dates, location:a.lieu, details:a.details, ctz:"Europe/Paris" });
-  $("#calGoogle").href = "https://calendar.google.com/calendar/render?" + q.toString();
+  const fmt = d => d.replace(/[-:]/g, "") + "00";   // 2027-06-26T14:30 -> 20270626T143000
+  const list = $("#calGoogleList");
+  CONFIG.agenda.forEach(ev => {
+    const q = new URLSearchParams({ action:"TEMPLATE", text:ev.titre, dates:fmt(ev.debut) + "/" + fmt(ev.fin),
+      location:ev.lieu, details:CONFIG.agendaDetails, ctz:"Europe/Paris" });
+    const a = document.createElement("a");
+    a.className = "cal-sub"; a.target = "_blank"; a.rel = "noopener";
+    a.href = "https://calendar.google.com/calendar/render?" + q.toString();
+    a.textContent = "+ " + ev.court;
+    list.appendChild(a);
+  });
+  $("#calGoogle").addEventListener("click", () => {
+    const open = list.hidden;
+    show(list, open);
+    $("#calGoogle").setAttribute("aria-expanded", open);
+  });
 })();
 
 // Affichage conditionnel
