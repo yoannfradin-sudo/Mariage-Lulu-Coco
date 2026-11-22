@@ -49,6 +49,7 @@
 
   /* ---------- Sections ---------- */
   form{display:block}
+  form[hidden]{display:none}
   .section{padding:30px 4px 6px;border-top:1px solid var(--line)}
   .section:first-of-type{border-top:0;padding-top:0}
   .section-head{display:flex;align-items:baseline;gap:12px;margin-bottom:20px}
@@ -129,7 +130,76 @@
 
   footer{text-align:center;margin-top:52px;font-family:var(--serif);color:var(--ink);font-size:15px;letter-spacing:.3em;text-transform:uppercase;line-height:1.9}
   footer small{display:block;font-size:13px;color:var(--muted)}
+
+  /* =========================================================
+     ANIMATIONS
+     ========================================================= */
+  :root{--ease:cubic-bezier(.2,.7,.2,1)}
+
+  /* Arrivée sur la page */
+  .hero img{animation:heroIn 1.6s var(--ease) both}
+  @keyframes heroIn{from{opacity:0;transform:scale(1.035)}to{opacity:1;transform:none}}
+  .welcome .intro{animation:rise 1s var(--ease) .45s both}
+  .welcome .deadline{animation:rise 1s var(--ease) .7s both}
+  @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+
+  /* Cœur dessiné à la main, puis un battement */
+  .doodle path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1.5s ease-in-out .3s forwards}
+  .doodle path + path{animation-delay:1.1s;animation-duration:.9s}
+  .doodle{animation:beat 1.1s ease-in-out 2.1s}
+  @keyframes draw{to{stroke-dashoffset:0}}
+  @keyframes beat{0%,100%{transform:scale(1)}15%{transform:scale(1.18)}30%{transform:scale(1)}45%{transform:scale(1.12)}}
+
+  /* Apparition des sections au défilement */
+  .js .appear{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+  .js .appear.in{opacity:1;transform:none}
+
+  /* Boutons de choix */
+  .choice span{transition:background .2s,border-color .2s,color .2s,transform .12s}
+  .choice input:active + span{transform:scale(.97)}
+  .choice input:checked + span{animation:pop .35s cubic-bezier(.3,1.6,.5,1)}
+  @keyframes pop{0%{transform:scale(.95)}100%{transform:none}}
+
+  /* Erreur : petit tremblement */
+  .invalid input[type=text],.invalid .choices{animation:shake .4s ease}
+  @keyframes shake{20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+
+  /* Envoi */
+  button.send{transition:background .15s,transform .15s}
+  button.send:active{transform:scale(.99)}
+  button.send:disabled{animation:breathe 1.2s ease-in-out infinite}
+  @keyframes breathe{50%{opacity:.4}}
+
+  /* Merci */
+  .thanks > *{animation:rise .9s var(--ease) both}
+  .thanks h2{animation-delay:.25s}
+  .thanks p{animation-delay:.4s}
+  .thanks .again{animation-delay:.6s}
+
+  /* Petits cœurs qui s'envolent / tombent */
+  .fly,.rain{position:fixed;pointer-events:none;color:var(--sage);z-index:20}
+  .fly svg,.rain svg{display:block;width:100%;height:auto}
+  .fly{width:var(--w);left:0;top:0;animation:fly 1.1s ease-out forwards}
+  @keyframes fly{
+    0%{opacity:0;transform:translate(-50%,-50%) scale(.3)}
+    20%{opacity:1}
+    100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(1) rotate(var(--r))}
+  }
+  .rain{top:-40px;width:var(--w);animation:fall var(--t) linear var(--delay) both}
+  @keyframes fall{
+    0%{opacity:0;transform:translate(0,0) rotate(0)}
+    10%{opacity:.9}
+    80%{opacity:.9}
+    100%{opacity:0;transform:translate(var(--sway),105vh) rotate(var(--r))}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation:none!important;transition:none!important}
+    .doodle path{stroke-dashoffset:0}
+    .js .appear{opacity:1;transform:none}
+  }
 </style>
+<script>document.documentElement.classList.add("js")</script>
 </head>
 <body>
 <div class="wrap">
@@ -138,7 +208,7 @@
     <img src="save-the-date.jpg" alt="Save the date — Lucile &amp; Corentin, 26.06.2027" width="1100" height="1473">
   </figure>
   <div class="welcome">
-    <svg class="doodle" viewBox="0 0 40 36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 33 C12 26, 3 20, 4 11 C5 4, 13 2, 19 9 C24 2, 34 3, 36 10 C38 19, 28 26, 20 33 Z"/><path d="M21 31 C14 25, 7 19, 7 12 C8 7, 14 6, 19 11" opacity=".55"/></svg>
+    <svg class="doodle" viewBox="0 0 40 36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M20 33 C12 26, 3 20, 4 11 C5 4, 13 2, 19 9 C24 2, 34 3, 36 10 C38 19, 28 26, 20 33 Z"/><path pathLength="1" d="M21 31 C14 25, 7 19, 7 12 C8 7, 14 6, 19 11" opacity=".55"/></svg>
     <p class="intro">Nous sommes heureux de partager cette belle journée avec vous.<br>Afin de nous aider dans l'organisation du mariage, merci de remplir ce petit formulaire.</p>
     <div class="deadline" id="deadline" hidden></div>
   </div>
@@ -146,7 +216,7 @@
   <form id="rsvp" novalidate>
 
     <!-- 01 Vous -->
-    <section class="section">
+    <section class="section appear">
       <div class="section-head"><span class="num">i.</span><h2>Vous</h2></div>
       <div class="row">
         <div class="field" data-required="prenom">
@@ -173,7 +243,7 @@
 
     <div id="ifYes" hidden>
       <!-- 02 Qui -->
-      <section class="section">
+      <section class="section appear">
         <div class="section-head"><span class="num">ii.</span><h2>Votre groupe</h2></div>
         <div class="field">
           <span class="label">Si vous venez, combien de personnes seront présentes ?</span>
@@ -190,7 +260,7 @@
       </section>
 
       <!-- 03 Le jour J -->
-      <section class="section">
+      <section class="section appear">
         <div class="section-head"><span class="num">iii.</span><h2>Le jour J</h2></div>
         <div class="field">
           <span class="label">Présence à la mairie</span>
@@ -203,7 +273,7 @@
       </section>
 
       <!-- 04 Pratique -->
-      <section class="section">
+      <section class="section appear">
         <div class="section-head"><span class="num">iv.</span><h2>Côté pratique</h2></div>
         <div class="field">
           <span class="label">Avez-vous des allergies ou des contraintes alimentaires ?</span>
@@ -220,7 +290,7 @@
       </section>
 
       <!-- 05 Le lendemain -->
-      <section class="section">
+      <section class="section appear">
         <div class="section-head"><span class="num">v.</span><h2>Le lendemain</h2></div>
         <div class="field">
           <span class="label">Le lendemain, nous fêterons l'anniversaire de Roma sur ce même lieu ! Serez-vous parmi nous ?</span>
@@ -229,7 +299,7 @@
       </section>
     </div>
 
-    <div class="submit-zone">
+    <div class="submit-zone appear">
       <button type="submit" class="send" id="sendBtn">Envoyer ma réponse</button>
       <p class="small">Vous pourrez nous recontacter si quelque chose change.</p>
       <div class="notice" id="notice" hidden></div>
@@ -237,7 +307,7 @@
   </form>
 
   <div class="thanks" id="thanks" hidden>
-    <svg class="doodle" viewBox="0 0 40 36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 33 C12 26, 3 20, 4 11 C5 4, 13 2, 19 9 C24 2, 34 3, 36 10 C38 19, 28 26, 20 33 Z"/><path d="M21 31 C14 25, 7 19, 7 12 C8 7, 14 6, 19 11" opacity=".55"/></svg>
+    <svg class="doodle" viewBox="0 0 40 36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path pathLength="1" d="M20 33 C12 26, 3 20, 4 11 C5 4, 13 2, 19 9 C24 2, 34 3, 36 10 C38 19, 28 26, 20 33 Z"/><path pathLength="1" d="M21 31 C14 25, 7 19, 7 12 C8 7, 14 6, 19 11" opacity=".55"/></svg>
     <h2 id="thanksTitle">Merci !</h2>
     <p id="thanksText"></p>
     <button class="again" id="againBtn" type="button">Envoyer une autre réponse</button>
@@ -300,8 +370,56 @@ const val = name => {
 };
 const show = (el, on) => { if (on && el.hidden) { el.hidden = false; el.classList.add("reveal"); } else if (!on) el.hidden = true; };
 
+/* ---------- Animations ---------- */
+const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const HEART = '<svg viewBox="0 0 40 36" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 33 C12 26, 3 20, 4 11 C5 4, 13 2, 19 9 C24 2, 34 3, 36 10 C38 19, 28 26, 20 33 Z"/></svg>';
+const rnd = (a, b) => a + Math.random() * (b - a);
+
+// Apparition des sections au défilement (en cascade si plusieurs arrivent ensemble)
+(function(){
+  const items = document.querySelectorAll(".appear");
+  if (reduceMotion || !("IntersectionObserver" in window)) { items.forEach(el => el.classList.add("in")); return; }
+  const io = new IntersectionObserver(entries => {
+    let i = 0;
+    entries.forEach(en => {
+      if (!en.isIntersecting) return;
+      en.target.style.transitionDelay = (i++ * 0.12) + "s";
+      en.target.classList.add("in");
+      io.unobserve(en.target);
+    });
+  }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
+  items.forEach(el => io.observe(el));
+})();
+
+// Petits cœurs qui s'envolent depuis un bouton
+function burst(el, n = 8){
+  if (reduceMotion) return;
+  const r = el.getBoundingClientRect(), x = r.left + r.width / 2, y = r.top + r.height / 2;
+  for (let i = 0; i < n; i++) {
+    const h = document.createElement("span");
+    const a = (-90 + rnd(-65, 65)) * Math.PI / 180, d = rnd(55, 120);
+    h.className = "fly"; h.innerHTML = HEART;
+    h.style.cssText = `left:${x}px;top:${y}px;--w:${rnd(13, 24)}px;--dx:${Math.cos(a) * d}px;--dy:${Math.sin(a) * d}px;--r:${rnd(-35, 35)}deg;animation-delay:${rnd(0, .12)}s`;
+    h.addEventListener("animationend", () => h.remove());
+    document.body.appendChild(h);
+  }
+}
+
+// Pluie de cœurs sur l'écran de remerciement
+function rain(n = 26){
+  if (reduceMotion) return;
+  for (let i = 0; i < n; i++) {
+    const h = document.createElement("span");
+    h.className = "rain"; h.innerHTML = HEART;
+    h.style.cssText = `left:${rnd(0, 100)}vw;--w:${rnd(10, 22)}px;--t:${rnd(3.2, 5.5)}s;--delay:${rnd(0, 1.8)}s;--sway:${rnd(-60, 60)}px;--r:${rnd(-180, 180)}deg`;
+    h.addEventListener("animationend", () => h.remove());
+    document.body.appendChild(h);
+  }
+}
+
 // Affichage conditionnel
 form.addEventListener("change", e => {
+  if (e.target.name === "presence" && e.target.value.startsWith("Oui")) burst(e.target.nextElementSibling);
   const yes = val("presence").startsWith("Oui");
   show($("#ifYes"), yes);
   $("#moreHint").hidden = !!val("presence");
@@ -331,7 +449,8 @@ function validate(){
   let ok = true, first = null;
   document.querySelectorAll("[data-required]").forEach(f => {
     const bad = !val(f.dataset.required);
-    f.classList.toggle("invalid", bad);
+    f.classList.remove("invalid");
+    if (bad) { void f.offsetWidth; f.classList.add("invalid"); } // relance le tremblement
     if (bad) { ok = false; first = first || f; }
   });
   if (first) first.scrollIntoView({behavior:"smooth", block:"center"});
@@ -347,7 +466,8 @@ function thanks(){
     : "Merci d'avoir pris le temps de répondre. Vous nous manquerez !";
   form.hidden = true;
   $("#thanks").hidden = false;
-  window.scrollTo({top:0, behavior:"smooth"});
+  $("#thanks").scrollIntoView({behavior: reduceMotion ? "auto" : "smooth", block:"center"});
+  if (yes) setTimeout(rain, 350);
 }
 
 form.addEventListener("submit", async e => {
