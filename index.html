@@ -323,7 +323,7 @@
     <h2 class="places-title">Le programme</h2>
     <div class="timeline">
     <div class="place">
-      <span class="place-time">14h30</span>
+      <span class="place-time">14h</span>
       <svg class="place-dot" viewBox="0 0 40 36" stroke="currentColor" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><path d="M20 33 C12 26, 3 20, 4 11 C5 4, 13 2, 19 9 C24 2, 34 3, 36 10 C38 19, 28 26, 20 33 Z"/></svg>
       <span class="place-kind">Mairie</span>
       <span class="place-name">Mairie d&#39;Avallon</span>
@@ -337,7 +337,7 @@
       <a class="place-addr" href="https://www.google.com/maps/search/?api=1&amp;query=%C3%89glise+Coll%C3%A9giale+Saint-Lazare%2C+11+Rue+Bocquillot%2C+89200+Avallon" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21s-6.5-6.1-6.5-11a6.5 6.5 0 0 1 13 0c0 4.9-6.5 11-6.5 11z" fill="none" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.3" fill="none" stroke="currentColor" stroke-width="1.6"/></svg><span>11 Rue Bocquillot<br>89200 Avallon</span></a>
     </div>
     <div class="place">
-      <span class="place-time">18h</span>
+      <span class="place-time">18h30</span>
       <svg class="place-dot" viewBox="0 0 40 36" stroke="currentColor" stroke-width="3" stroke-linejoin="round" aria-hidden="true"><path d="M20 33 C12 26, 3 20, 4 11 C5 4, 13 2, 19 9 C24 2, 34 3, 36 10 C38 19, 28 26, 20 33 Z"/></svg>
       <span class="place-kind">Réception</span>
       <span class="place-name">Les Gaties</span>
@@ -473,14 +473,14 @@ const CONFIG = {
   // aux réponses de l'invité sont proposés. Les fichiers agenda/*.ics sont générés
   // avec outils/agenda.py : garder les deux en phase.
   agenda: [
-    { id: "mairie", si: r => r.mairie !== "Non", court: "Mairie · 14h30", ligne: "• 26 juin, 14h30 — Mairie d'Avallon, 37 Grande Rue Aristide Briand, 89200 Avallon",
-      titre: "Mariage Lucile & Corentin · Mairie", debut: "2027-06-26T14:30", fin: "2027-06-26T15:30",
+    { id: "mairie", si: r => r.mairie !== "Non", court: "Mairie · 14h", ligne: "• 26 juin, 14h — Mairie d'Avallon, 37 Grande Rue Aristide Briand, 89200 Avallon",
+      titre: "Mariage Lucile & Corentin · Mairie", debut: "2027-06-26T14:00", fin: "2027-06-26T15:00",
       lieu: "Mairie d'Avallon, 37 Grande Rue Aristide Briand, 89200 Avallon" },
     { id: "eglise", si: r => r.eglise !== "Non", court: "Église · 16h30", ligne: "• 26 juin, 16h30 — Église Collégiale Saint-Lazare, 11 Rue Bocquillot, 89200 Avallon",
       titre: "Mariage Lucile & Corentin · Église", debut: "2027-06-26T16:30", fin: "2027-06-26T17:45",
       lieu: "Église Collégiale Saint-Lazare, 11 Rue Bocquillot, 89200 Avallon" },
-    { id: "reception", si: () => true, court: "Réception · 18h", ligne: "• 26 juin, 18h — Réception, Les Gaties, 89630 Saint-Germain-des-Champs",
-      titre: "Mariage Lucile & Corentin · Réception", debut: "2027-06-26T18:00", fin: "2027-06-27T02:00",
+    { id: "reception", si: () => true, court: "Réception · 18h30", ligne: "• 26 juin, vers 18h30 — Réception, Les Gaties, 89630 Saint-Germain-des-Champs",
+      titre: "Mariage Lucile & Corentin · Réception", debut: "2027-06-26T18:30", fin: "2027-06-27T02:00",
       lieu: "Les Gaties, 89630 Saint-Germain-des-Champs" },
     { id: "lendemain", si: r => r.lendemain === "Oui", court: "Lendemain · 27 juin", ligne: "• 27 juin — Anniversaire de Roma, Les Gaties, 89630 Saint-Germain-des-Champs",
       titre: "Lendemain du mariage · Anniversaire de Roma", debut: "2027-06-27", fin: "2027-06-28",

@@ -5,28 +5,28 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:mariage-reception-20270626@lucile-corentin.yoannfradin.fr
-DTSTAMP:20261122T173610Z
-DTSTART:20270626T160000Z
+DTSTAMP:20261122T191612Z
+DTSTART:20270626T163000Z
 DTEND:20270627T000000Z
 SUMMARY:Mariage Lucile & Corentin · Réception
 LOCATION:Les Gaties\, 89630 Saint-Germain-des-Champs
-DESCRIPTION:Votre programme :\n• 26 juin\, 18h — Réception\, Les Gatie
- s\, 89630 Saint-Germain-des-Champs\n• 27 juin — Anniversaire de Roma\,
-  Les Gaties\, 89630 Saint-Germain-des-Champs\n\nPlus d'infos : https://luc
- ile-corentin.yoannfradin.fr
+DESCRIPTION:Votre programme :\n• 26 juin\, vers 18h30 — Réception\, Le
+ s Gaties\, 89630 Saint-Germain-des-Champs\n• 27 juin — Anniversaire de
+  Roma\, Les Gaties\, 89630 Saint-Germain-des-Champs\n\nPlus d'infos : http
+ s://lucile-corentin.yoannfradin.fr
 URL:https://lucile-corentin.yoannfradin.fr
 END:VEVENT
 BEGIN:VEVENT
 UID:mariage-lendemain-20270626@lucile-corentin.yoannfradin.fr
-DTSTAMP:20261122T173610Z
+DTSTAMP:20261122T191612Z
 DTSTART;VALUE=DATE:20270627
 DTEND;VALUE=DATE:20270628
 SUMMARY:Lendemain du mariage · Anniversaire de Roma
 LOCATION:Les Gaties\, 89630 Saint-Germain-des-Champs
-DESCRIPTION:Votre programme :\n• 26 juin\, 18h — Réception\, Les Gatie
- s\, 89630 Saint-Germain-des-Champs\n• 27 juin — Anniversaire de Roma\,
-  Les Gaties\, 89630 Saint-Germain-des-Champs\n\nPlus d'infos : https://luc
- ile-corentin.yoannfradin.fr
+DESCRIPTION:Votre programme :\n• 26 juin\, vers 18h30 — Réception\, Le
+ s Gaties\, 89630 Saint-Germain-des-Champs\n• 27 juin — Anniversaire de
+  Roma\, Les Gaties\, 89630 Saint-Germain-des-Champs\n\nPlus d'infos : http
+ s://lucile-corentin.yoannfradin.fr
 URL:https://lucile-corentin.yoannfradin.fr
 END:VEVENT
 END:VCALENDAR

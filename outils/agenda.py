@@ -11,9 +11,9 @@ from pathlib import Path
 PARIS = timezone(timedelta(hours=2))  # heure d'été (juin)
 SITE = "https://lucile-corentin.yoannfradin.fr"
 LIGNES = {
-    "mairie": "• 26 juin, 14h30 — Mairie d'Avallon, 37 Grande Rue Aristide Briand, 89200 Avallon",
+    "mairie": "• 26 juin, 14h — Mairie d'Avallon, 37 Grande Rue Aristide Briand, 89200 Avallon",
     "eglise": "• 26 juin, 16h30 — Église Collégiale Saint-Lazare, 11 Rue Bocquillot, 89200 Avallon",
-    "reception": "• 26 juin, 18h — Réception, Les Gaties, 89630 Saint-Germain-des-Champs",
+    "reception": "• 26 juin, vers 18h30 — Réception, Les Gaties, 89630 Saint-Germain-des-Champs",
     "lendemain": "• 27 juin — Anniversaire de Roma, Les Gaties, 89630 Saint-Germain-des-Champs",
 }
 
@@ -25,11 +25,11 @@ def details(ids):
 
 # id, titre, début, fin, lieu — un début (a, m, j) sans heure = journée entière
 EVENTS = {
-    "mairie": ("Mariage Lucile & Corentin · Mairie", (2027, 6, 26, 14, 30), (2027, 6, 26, 15, 30),
+    "mairie": ("Mariage Lucile & Corentin · Mairie", (2027, 6, 26, 14, 0), (2027, 6, 26, 15, 0),
                "Mairie d'Avallon, 37 Grande Rue Aristide Briand, 89200 Avallon"),
     "eglise": ("Mariage Lucile & Corentin · Église", (2027, 6, 26, 16, 30), (2027, 6, 26, 17, 45),
                "Église Collégiale Saint-Lazare, 11 Rue Bocquillot, 89200 Avallon"),
-    "reception": ("Mariage Lucile & Corentin · Réception", (2027, 6, 26, 18, 0), (2027, 6, 27, 2, 0),
+    "reception": ("Mariage Lucile & Corentin · Réception", (2027, 6, 26, 18, 30), (2027, 6, 27, 2, 0),
                   "Les Gaties, 89630 Saint-Germain-des-Champs"),
     "lendemain": ("Lendemain du mariage · Anniversaire de Roma", (2027, 6, 27), (2027, 6, 28),
                   "Les Gaties, 89630 Saint-Germain-des-Champs"),

@@ -5,45 +5,45 @@ CALSCALE:GREGORIAN
 METHOD:PUBLISH
 BEGIN:VEVENT
 UID:mariage-mairie-20270626@lucile-corentin.yoannfradin.fr
-DTSTAMP:20261122T173610Z
-DTSTART:20270626T123000Z
-DTEND:20270626T133000Z
+DTSTAMP:20261122T191612Z
+DTSTART:20270626T120000Z
+DTEND:20270626T130000Z
 SUMMARY:Mariage Lucile & Corentin · Mairie
 LOCATION:Mairie d'Avallon\, 37 Grande Rue Aristide Briand\, 89200 Avallon
-DESCRIPTION:Votre programme :\n• 26 juin\, 14h30 — Mairie d'Avallon\, 3
- 7 Grande Rue Aristide Briand\, 89200 Avallon\n• 26 juin\, 16h30 — Égl
- ise Collégiale Saint-Lazare\, 11 Rue Bocquillot\, 89200 Avallon\n• 26 j
- uin\, 18h — Réception\, Les Gaties\, 89630 Saint-Germain-des-Champs\n\n
- Plus d'infos : https://lucile-corentin.yoannfradin.fr
+DESCRIPTION:Votre programme :\n• 26 juin\, 14h — Mairie d'Avallon\, 37 
+ Grande Rue Aristide Briand\, 89200 Avallon\n• 26 juin\, 16h30 — Églis
+ e Collégiale Saint-Lazare\, 11 Rue Bocquillot\, 89200 Avallon\n• 26 jui
+ n\, vers 18h30 — Réception\, Les Gaties\, 89630 Saint-Germain-des-Champ
+ s\n\nPlus d'infos : https://lucile-corentin.yoannfradin.fr
 URL:https://lucile-corentin.yoannfradin.fr
 END:VEVENT
 BEGIN:VEVENT
 UID:mariage-eglise-20270626@lucile-corentin.yoannfradin.fr
-DTSTAMP:20261122T173610Z
+DTSTAMP:20261122T191612Z
 DTSTART:20270626T143000Z
 DTEND:20270626T154500Z
 SUMMARY:Mariage Lucile & Corentin · Église
 LOCATION:Église Collégiale Saint-Lazare\, 11 Rue Bocquillot\, 89200 Avall
  on
-DESCRIPTION:Votre programme :\n• 26 juin\, 14h30 — Mairie d'Avallon\, 3
- 7 Grande Rue Aristide Briand\, 89200 Avallon\n• 26 juin\, 16h30 — Égl
- ise Collégiale Saint-Lazare\, 11 Rue Bocquillot\, 89200 Avallon\n• 26 j
- uin\, 18h — Réception\, Les Gaties\, 89630 Saint-Germain-des-Champs\n\n
- Plus d'infos : https://lucile-corentin.yoannfradin.fr
+DESCRIPTION:Votre programme :\n• 26 juin\, 14h — Mairie d'Avallon\, 37 
+ Grande Rue Aristide Briand\, 89200 Avallon\n• 26 juin\, 16h30 — Églis
+ e Collégiale Saint-Lazare\, 11 Rue Bocquillot\, 89200 Avallon\n• 26 jui
+ n\, vers 18h30 — Réception\, Les Gaties\, 89630 Saint-Germain-des-Champ
+ s\n\nPlus d'infos : https://lucile-corentin.yoannfradin.fr
 URL:https://lucile-corentin.yoannfradin.fr
 END:VEVENT
 BEGIN:VEVENT
 UID:mariage-reception-20270626@lucile-corentin.yoannfradin.fr
-DTSTAMP:20261122T173610Z
-DTSTART:20270626T160000Z
+DTSTAMP:20261122T191612Z
+DTSTART:20270626T163000Z
 DTEND:20270627T000000Z
 SUMMARY:Mariage Lucile & Corentin · Réception
 LOCATION:Les Gaties\, 89630 Saint-Germain-des-Champs
-DESCRIPTION:Votre programme :\n• 26 juin\, 14h30 — Mairie d'Avallon\, 3
- 7 Grande Rue Aristide Briand\, 89200 Avallon\n• 26 juin\, 16h30 — Égl
- ise Collégiale Saint-Lazare\, 11 Rue Bocquillot\, 89200 Avallon\n• 26 j
- uin\, 18h — Réception\, Les Gaties\, 89630 Saint-Germain-des-Champs\n\n
- Plus d'infos : https://lucile-corentin.yoannfradin.fr
+DESCRIPTION:Votre programme :\n• 26 juin\, 14h — Mairie d'Avallon\, 37 
+ Grande Rue Aristide Briand\, 89200 Avallon\n• 26 juin\, 16h30 — Églis
+ e Collégiale Saint-Lazare\, 11 Rue Bocquillot\, 89200 Avallon\n• 26 jui
+ n\, vers 18h30 — Réception\, Les Gaties\, 89630 Saint-Germain-des-Champ
+ s\n\nPlus d'infos : https://lucile-corentin.yoannfradin.fr
 URL:https://lucile-corentin.yoannfradin.fr
 END:VEVENT
 END:VCALENDAR
