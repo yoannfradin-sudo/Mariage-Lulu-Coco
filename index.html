@@ -473,24 +473,20 @@ const CONFIG = {
   // aux réponses de l'invité sont proposés. Les fichiers agenda/*.ics sont générés
   // avec outils/agenda.py : garder les deux en phase.
   agenda: [
-    { id: "mairie", si: r => r.mairie !== "Non", court: "Mairie · 14h30",
+    { id: "mairie", si: r => r.mairie !== "Non", court: "Mairie · 14h30", ligne: "• 26 juin, 14h30 — Mairie d'Avallon, 37 Grande Rue Aristide Briand, 89200 Avallon",
       titre: "Mariage Lucile & Corentin · Mairie", debut: "2027-06-26T14:30", fin: "2027-06-26T15:30",
       lieu: "Mairie d'Avallon, 37 Grande Rue Aristide Briand, 89200 Avallon" },
-    { id: "eglise", si: r => r.eglise !== "Non", court: "Église · 16h30",
+    { id: "eglise", si: r => r.eglise !== "Non", court: "Église · 16h30", ligne: "• 26 juin, 16h30 — Église Collégiale Saint-Lazare, 11 Rue Bocquillot, 89200 Avallon",
       titre: "Mariage Lucile & Corentin · Église", debut: "2027-06-26T16:30", fin: "2027-06-26T17:45",
       lieu: "Église Collégiale Saint-Lazare, 11 Rue Bocquillot, 89200 Avallon" },
-    { id: "reception", si: () => true, court: "Réception · 18h",
+    { id: "reception", si: () => true, court: "Réception · 18h", ligne: "• 26 juin, 18h — Réception, Les Gaties, 89630 Saint-Germain-des-Champs",
       titre: "Mariage Lucile & Corentin · Réception", debut: "2027-06-26T18:00", fin: "2027-06-27T02:00",
       lieu: "Les Gaties, 89630 Saint-Germain-des-Champs" },
-    { id: "lendemain", si: r => r.lendemain === "Oui", court: "Lendemain · 27 juin",
+    { id: "lendemain", si: r => r.lendemain === "Oui", court: "Lendemain · 27 juin", ligne: "• 27 juin — Anniversaire de Roma, Les Gaties, 89630 Saint-Germain-des-Champs",
       titre: "Lendemain du mariage · Anniversaire de Roma", debut: "2027-06-27", fin: "2027-06-28",
       lieu: "Les Gaties, 89630 Saint-Germain-des-Champs" }
   ],
-  agendaDetails: "Programme du 26 juin 2027 :\n" +
-    "• 14h30 — Mairie d'Avallon, 37 Grande Rue Aristide Briand, 89200 Avallon\n" +
-    "• 16h30 — Église Collégiale Saint-Lazare, 11 Rue Bocquillot, 89200 Avallon\n" +
-    "• 18h00 — Réception, Les Gaties, 89630 Saint-Germain-des-Champs\n\n" +
-    "Plus d'infos : https://lucile-corentin.yoannfradin.fr",
+  agendaSite: "https://lucile-corentin.yoannfradin.fr",
   // Identifiants des champs Google Form (entry.XXXXXXXX) — issus du lien pré-rempli
   entries: {
     prenom:          "1923296261",
@@ -635,6 +631,8 @@ function rain(n = 26){
 function buildCal(){
   const r = { mairie: val("mairie"), eglise: val("eglise"), lendemain: val("lendemain") };
   const evs = CONFIG.agenda.filter(ev => ev.si(r));
+  // Description : uniquement les moments auxquels l'invité participe
+  const details = "Votre programme :\n" + evs.map(ev => ev.ligne).join("\n") + "\n\nPlus d'infos : " + CONFIG.agendaSite;
   // Fichier iPhone / Outlook pré-généré pour cette combinaison
   $("#calIcs").href = "agenda/" + evs.map(ev => ev.id).join("-") + ".ics";
   $("#calRecap").textContent = evs.map(ev => ev.court).join("  ·  ");
@@ -645,7 +643,7 @@ function buildCal(){
   $("#calGoogle").setAttribute("aria-expanded", "false");
   evs.forEach(ev => {
     const q = new URLSearchParams({ action:"TEMPLATE", text:ev.titre, dates:fmt(ev.debut) + "/" + fmt(ev.fin),
-      location:ev.lieu, details:CONFIG.agendaDetails, ctz:"Europe/Paris" });
+      location:ev.lieu, details, ctz:"Europe/Paris" });
     const a = document.createElement("a");
     a.className = "cal-sub"; a.target = "_blank"; a.rel = "noopener";
     a.href = "https://calendar.google.com/calendar/render?" + q.toString();

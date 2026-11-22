@@ -10,13 +10,19 @@ from pathlib import Path
 
 PARIS = timezone(timedelta(hours=2))  # heure d'été (juin)
 SITE = "https://lucile-corentin.yoannfradin.fr"
-DETAILS = (
-    "Programme du 26 juin 2027 :\n"
-    "• 14h30 — Mairie d'Avallon, 37 Grande Rue Aristide Briand, 89200 Avallon\n"
-    "• 16h30 — Église Collégiale Saint-Lazare, 11 Rue Bocquillot, 89200 Avallon\n"
-    "• 18h00 — Réception, Les Gaties, 89630 Saint-Germain-des-Champs\n\n"
-    "Plus d'infos : " + SITE
-)
+LIGNES = {
+    "mairie": "• 26 juin, 14h30 — Mairie d'Avallon, 37 Grande Rue Aristide Briand, 89200 Avallon",
+    "eglise": "• 26 juin, 16h30 — Église Collégiale Saint-Lazare, 11 Rue Bocquillot, 89200 Avallon",
+    "reception": "• 26 juin, 18h — Réception, Les Gaties, 89630 Saint-Germain-des-Champs",
+    "lendemain": "• 27 juin — Anniversaire de Roma, Les Gaties, 89630 Saint-Germain-des-Champs",
+}
+
+
+def details(ids):
+    """Description limitée aux moments auxquels l'invité participe."""
+    return "Votre programme :\n" + "\n".join(LIGNES[i] for i in ids) + "\n\nPlus d'infos : " + SITE
+
+
 # id, titre, début, fin, lieu — un début (a, m, j) sans heure = journée entière
 EVENTS = {
     "mairie": ("Mariage Lucile & Corentin · Mairie", (2027, 6, 26, 14, 30), (2027, 6, 26, 15, 30),
@@ -61,7 +67,7 @@ def calendar(ids):
         title, start, end, loc = EVENTS[i]
         lines += ["BEGIN:VEVENT", f"UID:mariage-{i}-20270626@lucile-corentin.yoannfradin.fr",
                   "DTSTAMP:" + stamp, when("DTSTART", start), when("DTEND", end),
-                  "SUMMARY:" + esc(title), "LOCATION:" + esc(loc), "DESCRIPTION:" + esc(DETAILS),
+                  "SUMMARY:" + esc(title), "LOCATION:" + esc(loc), "DESCRIPTION:" + esc(details(ids)),
                   "URL:" + SITE, "END:VEVENT"]
     lines.append("END:VCALENDAR")
     return "\r\n".join(fold(l) for l in lines) + "\r\n"
