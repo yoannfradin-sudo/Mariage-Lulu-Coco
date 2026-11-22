@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mariage Corentin & Lucile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F0ECEB;
+    --card:#F8F6F5;
+    --ink:#1C1B1A;
+    --muted:#766F6B;
+    --line:#D8D0CC;
+    --sage:#A9342E;      /* rouge des dessins du save the date */
+    --sage-dark:#8C2A25;
+    --sage-soft:#F0DCD8;
+    --error:#A9342E;
+    --serif:"Cormorant Garamond", Georgia, serif;
+    --sans:"Figtree", system-ui, -apple-system, sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.55;
+    min-height:100vh;
+    padding:24px 16px 64px;
+  }
+  .wrap{max-width:560px;margin:0 auto}
+
+  /* ---------- En-tête ---------- */
+  .hero{margin:0 -16px 8px;}
+  .hero img{display:block;width:100%;height:auto;-webkit-mask-image:linear-gradient(#000 96%,transparent);mask-image:linear-gradient(#000 96%,transparent)}
+  .welcome{text-align:center;padding:8px 12px 40px}
+  .doodle{width:30px;height:auto;color:var(--sage);display:block;margin:0 auto 14px}
+  .intro{font-family:var(--serif);font-size:21px;line-height:1.4;color:var(--ink);max-width:420px;margin:0 auto}
+  .deadline{
+    display:inline-block;margin-top:20px;font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--ink);border-top:1px solid var(--ink);border-bottom:1px solid var(--ink);padding:7px 4px;
+  }
+  .deadline[hidden]{display:none}
+
+  /* ---------- Sections ---------- */
+  form{display:block}
+  .section{padding:30px 4px 6px;border-top:1px solid var(--line)}
+  .section:first-of-type{border-top:0;padding-top:0}
+  .section-head{display:flex;align-items:baseline;gap:12px;margin-bottom:20px}
+  .num{font-family:var(--serif);font-style:italic;color:var(--sage);font-size:21px;min-width:26px}
+  h2{font-family:var(--serif);font-weight:400;font-size:19px;line-height:1.2;text-transform:uppercase;letter-spacing:.2em}
+
+  .field{margin-bottom:22px}
+  .field[hidden]{display:none}
+  textarea{resize:vertical;min-height:90px;line-height:1.45}
+  .label{display:block;font-weight:500;font-size:15px;margin-bottom:9px}
+  .label .req{color:var(--sage);margin-left:2px}
+  .hint{display:block;font-size:13px;color:var(--muted);margin-top:-5px;margin-bottom:10px}
+  .hint[hidden]{display:none}
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:420px){.row{grid-template-columns:1fr}}
+
+  input[type=text],textarea{
+    width:100%;font:inherit;color:var(--ink);
+    background:var(--card);border:1px solid var(--line);border-radius:3px;
+    padding:13px 14px;transition:border-color .15s, box-shadow .15s;
+    -webkit-appearance:none;appearance:none;
+  }
+  input[type=text]::placeholder{color:#AAA497}
+  input[type=text]:focus,textarea:focus{outline:none;border-color:var(--sage);box-shadow:0 0 0 3px var(--sage-soft)}
+  .invalid input[type=text]{border-color:var(--error)}
+  .err{display:none;color:var(--error);font-size:13px;margin-top:6px}
+  .invalid .err{display:block}
+
+  /* Choix segmentés */
+  .choices{display:flex;flex-wrap:wrap;gap:8px}
+  .choice{position:relative}
+  .choice input{position:absolute;opacity:0;inset:0;width:100%;height:100%;margin:0;cursor:pointer}
+  .choice span{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:64px;min-height:46px;padding:0 18px;
+    background:var(--card);border:1px solid var(--line);border-radius:3px;
+    font-size:15px;color:var(--ink);transition:all .15s;user-select:none;
+  }
+  .choice input:hover + span{border-color:#B9B2A2}
+  .choice input:focus-visible + span{box-shadow:0 0 0 3px var(--sage-soft);border-color:var(--sage)}
+  .choice input:checked + span{background:var(--ink);border-color:var(--ink);color:#fff}
+  .choices.big .choice{flex:1}
+  .choices.big .choice span{width:100%;min-height:54px;font-size:16px}
+  .invalid .choice span{border-color:var(--error)}
+
+  .reveal{animation:fade .25s ease}
+  @keyframes fade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+
+  /* ---------- Envoi ---------- */
+  .submit-zone{padding:30px 4px 0;border-top:1px solid var(--line)}
+  button.send{
+    width:100%;font:inherit;font-weight:600;font-size:16px;letter-spacing:.02em;
+    color:#fff;background:var(--ink);border:0;border-radius:3px;
+    min-height:56px;cursor:pointer;transition:background .15s;
+  }
+  button.send:hover{background:#000}
+  button.send:disabled{opacity:.6;cursor:wait}
+  .small{font-size:13px;color:var(--muted);text-align:center;margin-top:12px}
+  .notice{
+    margin-top:16px;padding:14px 16px;border:1px solid var(--line);background:var(--card);
+    font-size:14px;color:var(--ink);border-radius:3px;
+  }
+  .notice[hidden]{display:none}
+  .notice a.btn{
+    display:block;text-align:center;margin-top:12px;padding:14px;border-radius:3px;
+    background:var(--sage);color:#fff;text-decoration:none;font-weight:600;
+  }
+
+  /* ---------- Merci ---------- */
+  .thanks{text-align:center;padding:30px 20px}
+  .thanks[hidden]{display:none}
+  .thanks h2{font-size:34px;font-style:italic;font-weight:400;text-transform:none;letter-spacing:0;margin:10px 0 12px}
+  .thanks p{color:var(--muted);max-width:380px;margin:0 auto 8px}
+  .thanks .again{
+    margin-top:22px;background:none;border:1px solid var(--line);font:inherit;font-size:14px;
+    padding:10px 18px;border-radius:3px;color:var(--ink);cursor:pointer;
+  }
+
+  footer{text-align:center;margin-top:52px;font-family:var(--serif);color:var(--ink);font-size:15px;letter-spacing:.3em;text-transform:uppercase;line-height:1.9}
+  footer small{display:block;font-size:13px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <figure class="hero">
+    <img src="save-the-date.jpg" alt="Save the date — Lucile &amp; Corentin, 26.06.2027" width="1100" height="1473">
+  </figure>
+  <div class="welcome">
+    <svg class="doodle" viewBox="0 0 40 36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 33 C12 26, 3 20, 4 11 C5 4, 13 2, 19 9 C24 2, 34 3, 36 10 C38 19, 28 26, 20 33 Z"/><path d="M21 31 C14 25, 7 19, 7 12 C8 7, 14 6, 19 11" opacity=".55"/></svg>
+    <p class="intro">Nous sommes heureux de partager cette belle journée avec vous.<br>Afin de nous aider dans l'organisation du mariage, merci de remplir ce petit formulaire.</p>
+    <div class="deadline" id="deadline" hidden></div>
+  </div>
+
+  <form id="rsvp" novalidate>
+
+    <!-- 01 Vous -->
+    <section class="section">
+      <div class="section-head"><span class="num">i.</span><h2>Vous</h2></div>
+      <div class="row">
+        <div class="field" data-required="prenom">
+          <label class="label" for="prenom">Prénom<span class="req">*</span></label>
+          <input type="text" id="prenom" name="prenom" autocomplete="given-name" placeholder="Votre prénom">
+          <div class="err">Merci d'indiquer votre prénom.</div>
+        </div>
+        <div class="field" data-required="nom">
+          <label class="label" for="nom">Nom<span class="req">*</span></label>
+          <input type="text" id="nom" name="nom" autocomplete="family-name" placeholder="Votre nom">
+          <div class="err">Merci d'indiquer votre nom.</div>
+        </div>
+      </div>
+      <div class="field" data-required="presence">
+        <span class="label">Serez-vous présent(e) à notre mariage ?<span class="req">*</span></span>
+        <div class="choices big" role="radiogroup">
+          <label class="choice"><input type="radio" name="presence" value="Oui ❤️"><span>Oui ❤️</span></label>
+          <label class="choice"><input type="radio" name="presence" value="Non 😭"><span>Non 😭</span></label>
+        </div>
+        <div class="err">Merci de nous dire si vous serez là.</div>
+        <span class="hint" id="moreHint" style="margin:10px 0 0">Les autres questions s'affichent quand vous répondez « Oui ».</span>
+      </div>
+    </section>
+
+    <div id="ifYes" hidden>
+      <!-- 02 Qui -->
+      <section class="section">
+        <div class="section-head"><span class="num">ii.</span><h2>Votre groupe</h2></div>
+        <div class="field">
+          <span class="label">Si vous venez, combien de personnes seront présentes ?</span>
+          <div class="choices" data-name="nb" data-options="1 personne::1|2 personnes::2|3 personnes::3|4 personnes::4|5 ou plus"></div>
+        </div>
+        <div class="field">
+          <span class="label">Y aura-t-il des enfants avec vous ? (moins de 10 ans)</span>
+          <div class="choices" data-name="enfants" data-options="Oui|Non"></div>
+        </div>
+        <div class="field" id="fNbEnfants" hidden>
+          <span class="label">Si oui, combien ?</span>
+          <div class="choices" data-name="nbEnfants" data-options="1|2|3"></div>
+        </div>
+      </section>
+
+      <!-- 03 Le jour J -->
+      <section class="section">
+        <div class="section-head"><span class="num">iii.</span><h2>Le jour J</h2></div>
+        <div class="field">
+          <span class="label">Présence à la mairie</span>
+          <div class="choices" data-name="mairie" data-options="Oui|Non"></div>
+        </div>
+        <div class="field">
+          <span class="label">Présence à l'église</span>
+          <div class="choices" data-name="eglise" data-options="Oui|Non"></div>
+        </div>
+      </section>
+
+      <!-- 04 Pratique -->
+      <section class="section">
+        <div class="section-head"><span class="num">iv.</span><h2>Côté pratique</h2></div>
+        <div class="field">
+          <span class="label">Avez-vous des allergies ou des contraintes alimentaires ?</span>
+          <div class="choices" data-name="allergies" data-options="Oui|Non"></div>
+        </div>
+        <div class="field" id="fAllergiesDetail" hidden>
+          <label class="label" for="allergiesDetail">Si oui, précisez</label>
+          <textarea id="allergiesDetail" name="allergiesDetail" rows="3" placeholder="Ex. sans gluten, végétarien, fruits à coque…"></textarea>
+        </div>
+        <div class="field">
+          <span class="label">Avez-vous besoin d'un hébergement ?</span>
+          <div class="choices" data-name="hebergement" data-options="Oui|Non"></div>
+        </div>
+      </section>
+
+      <!-- 05 Le lendemain -->
+      <section class="section">
+        <div class="section-head"><span class="num">v.</span><h2>Le lendemain</h2></div>
+        <div class="field">
+          <span class="label">Le lendemain, nous fêterons l'anniversaire de Roma sur ce même lieu ! Serez-vous parmi nous ?</span>
+          <div class="choices" data-name="lendemain" data-options="Oui|Non"></div>
+        </div>
+      </section>
+    </div>
+
+    <div class="submit-zone">
+      <button type="submit" class="send" id="sendBtn">Envoyer ma réponse</button>
+      <p class="small">Vous pourrez nous recontacter si quelque chose change.</p>
+      <div class="notice" id="notice" hidden></div>
+    </div>
+  </form>
+
+  <div class="thanks" id="thanks" hidden>
+    <svg class="doodle" viewBox="0 0 40 36" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 33 C12 26, 3 20, 4 11 C5 4, 13 2, 19 9 C24 2, 34 3, 36 10 C38 19, 28 26, 20 33 Z"/><path d="M21 31 C14 25, 7 19, 7 12 C8 7, 14 6, 19 11" opacity=".55"/></svg>
+    <h2 id="thanksTitle">Merci !</h2>
+    <p id="thanksText"></p>
+    <button class="again" id="againBtn" type="button">Envoyer une autre réponse</button>
+  </div>
+
+  <footer>Lucile &amp; Corentin<small>26 . 06 . 2027</small></footer>
+</div>
+
+<script>
+/* =========================================================
+   CONFIGURATION — à compléter
+   ========================================================= */
+const CONFIG = {
+  formId: "1FAIpQLSdMiEuyPBWDl4BdL_Z60A0LiJA-W8oCRy1P9hSN5NUKXTj92A",
+  date: "26.06.2027",
+  lieu: "",          // ex. "Domaine de …, Côte-d'Or"
+  dateLimite: "",    // ex. "1er mars 2027"
+  // Identifiants des champs Google Form (entry.XXXXXXXX) — issus du lien pré-rempli
+  entries: {
+    prenom:          "1923296261",
+    nom:             "6780597",
+    presence:        "1499951554",
+    nb:              "1223237488",
+    enfants:         "1921028498",
+    nbEnfants:       "1472678990",
+    mairie:          "96267021",
+    eglise:          "2033373890",
+    allergies:       "958692199",
+    allergiesDetail: "686876890",
+    hebergement:     "494459347",
+    lendemain:       "1347312744"
+  }
+};
+/* ========================================================= */
+
+const $ = s => document.querySelector(s);
+const form = $("#rsvp");
+
+// En-tête
+if (CONFIG.dateLimite) { const d = $("#deadline"); d.textContent = "Réponse souhaitée avant le " + CONFIG.dateLimite; d.hidden = false; }
+
+// Génère les groupes de choix
+document.querySelectorAll(".choices[data-options]").forEach(g => {
+  const name = g.dataset.name;
+  g.setAttribute("role","radiogroup");
+  g.dataset.options.split("|").forEach(opt => {
+    const l = document.createElement("label");
+    l.className = "choice";
+    const [value, label] = opt.split("::");
+    l.innerHTML = `<input type="radio" name="${name}" value="${value}"><span>${label || value}</span>`;
+    g.appendChild(l);
+  });
+});
+
+const val = name => {
+  const el = form.elements[name];
+  if (!el) return "";
+  if (el instanceof RadioNodeList) return el.value || "";
+  return (el.value || "").trim();
+};
+const show = (el, on) => { if (on && el.hidden) { el.hidden = false; el.classList.add("reveal"); } else if (!on) el.hidden = true; };
+
+// Affichage conditionnel
+form.addEventListener("change", e => {
+  const yes = val("presence").startsWith("Oui");
+  show($("#ifYes"), yes);
+  $("#moreHint").hidden = !!val("presence");
+  show($("#fNbEnfants"), val("enfants") === "Oui");
+  show($("#fAllergiesDetail"), val("allergies") === "Oui");
+  const f = e.target.closest(".field");
+  if (f) f.classList.remove("invalid");
+});
+form.addEventListener("input", e => { const f = e.target.closest(".field"); if (f) f.classList.remove("invalid"); });
+
+// Collecte des réponses à envoyer
+function collect(){
+  const keys = ["prenom","nom","presence"];
+  if (val("presence").startsWith("Oui")) {
+    keys.push("nb","enfants");
+    if (val("enfants") === "Oui") keys.push("nbEnfants");
+    keys.push("mairie","eglise","allergies");
+    if (val("allergies") === "Oui") keys.push("allergiesDetail");
+    keys.push("hebergement","lendemain");
+  }
+  const p = new URLSearchParams();
+  keys.forEach(k => { const v = val(k); const id = CONFIG.entries[k]; if (v && id) p.append("entry." + String(id).replace(/^entry\./,""), v); });
+  return p;
+}
+
+function validate(){
+  let ok = true, first = null;
+  document.querySelectorAll("[data-required]").forEach(f => {
+    const bad = !val(f.dataset.required);
+    f.classList.toggle("invalid", bad);
+    if (bad) { ok = false; first = first || f; }
+  });
+  if (first) first.scrollIntoView({behavior:"smooth", block:"center"});
+  return ok;
+}
+
+function thanks(){
+  const yes = val("presence").startsWith("Oui");
+  const prenom = val("prenom");
+  $("#thanksTitle").textContent = yes ? `Merci ${prenom} !` : `Merci ${prenom}`;
+  $("#thanksText").textContent = yes
+    ? "Merci d'avoir pris le temps de répondre. Nous avons hâte de partager cette journée avec vous 🥂💍"
+    : "Merci d'avoir pris le temps de répondre. Vous nous manquerez !";
+  form.hidden = true;
+  $("#thanks").hidden = false;
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+form.addEventListener("submit", async e => {
+  e.preventDefault();
+  const notice = $("#notice");
+  notice.hidden = true;
+  if (!validate()) return;
+
+  const wired = Object.values(CONFIG.entries).some(Boolean);
+  if (!wired) {
+    notice.innerHTML = "<strong>Aperçu</strong> — le formulaire n'est pas encore relié à Google Forms, aucune réponse n'a été envoyée.";
+    notice.hidden = false;
+    return;
+  }
+
+  const params = collect();
+  const base = `https://docs.google.com/forms/d/e/${CONFIG.formId}/formResponse`;
+  const btn = $("#sendBtn");
+  btn.disabled = true; btn.textContent = "Envoi…";
+  try {
+    await fetch(base, { method:"POST", mode:"no-cors", body: params });
+    thanks();
+  } catch (err) {
+    // Hébergement qui bloque l'envoi direct : on passe par un lien de validation
+    params.append("submit","Submit");
+    notice.innerHTML = `Dernière étape : touchez le bouton ci-dessous pour valider votre réponse.
+      <a class="btn" href="${base}?${params.toString()}" target="_blank" rel="noopener" id="confirmLink">Valider ma réponse</a>`;
+    notice.hidden = false;
+    $("#confirmLink").addEventListener("click", () => setTimeout(thanks, 400));
+  } finally {
+    btn.disabled = false; btn.textContent = "Envoyer ma réponse";
+  }
+});
+
+$("#againBtn").addEventListener("click", () => {
+  form.reset();
+  ["#ifYes","#fNbEnfants","#fAllergiesDetail","#notice"].forEach(s => $(s).hidden = true);
+  $("#moreHint").hidden = false;
+  $("#thanks").hidden = true; form.hidden = false;
+  window.scrollTo({top:0});
+});
+</script>
+</body>
+</html>
